@@ -43,14 +43,16 @@ flask-ci-cd/
 ### 1. Clone the repo
 ```bash
 git clone https://github.com/cjeeva03/DevOps-Jenkins-Docker.git
-cd flask-ci-cd
+cd DevOps-Jenkins-Docker
 ```
 ### 2. Run the app locally (no Docker)
 ```bash
+cd flask-ci-cd
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python -m app.main 
+cd ..
 ```
 ### 3. Jenkins Setup
 ```bash
@@ -65,6 +67,7 @@ __Jenkins Plugin__
 - Slack Notification (if you want Slack)
 ### 4. Build & run with Docker
 ```bash
+cd flask-ci-cd
 docker build -t flask-ci-cd .
 docker run -p 5000:5000 flask-ci-cd
 ```
@@ -74,8 +77,9 @@ Visit `http://localhost:5000/health` – you should see `{"status":"ok"}`.
 ## Roadmap
 
 ### commit history
-    1. initial commit
-    2. Error faced - [python -m venv venv] Jenkinsfile - Added seperate python docker
+    1. initial commit.
+    2. Error faced - [python -m venv venv] Jenkinsfile - Added seperate python docker.
     3. Removed python docker and modified jenkins image
-    4. python error fix venv setup
+    4. python error fix venv setup.
+    5. Re-configured - changed jenkins image to ubuntu image for docker dependency.
 
