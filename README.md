@@ -82,4 +82,3 @@ Visit `http://localhost:5000/health` – you should see `{"status":"ok"}`.
     3. Removed python docker and modified jenkins image
     4. python error fix venv setup.
     5. Re-configured - changed jenkins image to ubuntu image for docker dependency.
-

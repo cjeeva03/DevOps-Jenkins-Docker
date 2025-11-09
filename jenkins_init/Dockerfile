@@ -7,13 +7,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fontconfig \
     openjdk-21-jre \
     curl \
+    git \
     gnupg \
     ca-certificates \
     apt-transport-https \
     software-properties-common \
     python3 \
     python3-venv \
-    python3-pip
+    python3-pip \
+    ln -s /usr/bin/python3 /usr/local/bin/python
 
 # Install Jenkins
 RUN curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null && \

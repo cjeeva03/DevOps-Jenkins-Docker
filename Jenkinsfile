@@ -56,7 +56,7 @@ pipeline {
                 Project: ${env.JOB_NAME}
                 Build Number: ${env.BUILD_NUMBER}
                 Build URL: ${env.BUILD_URL}""",
-                to: "cjeeva79@yopmail.com"
+                to: "${env.email_addr}"
             )
         }
         failure {
@@ -70,7 +70,7 @@ pipeline {
                 Project: ${env.JOB_NAME}
                 Build Number: ${env.BUILD_NUMBER}
                 Build URL: ${env.BUILD_URL}""",
-                to: "cjeeva79@yopmail.com"
+                to: "${env.email_addr}"
             )
         }
         always {
