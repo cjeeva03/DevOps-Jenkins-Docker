@@ -1,0 +1,77 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "flask-ci-cd"
+        REGISTRY   = "localhost:5000"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install & Test') {
+            steps {
+                sh 'python -m venv venv && . venv/bin/activate && pip install -r requirements.txt && pytest -q'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${env.IMAGE_NAME}:$BUILD_NUMBER")
+                }
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                script {
+                    def container = docker.image("${env.IMAGE_NAME}:$BUILD_NUMBER")
+                    container.run("-d -p 5000:5000 --name flask_app_$BUILD_NUMBER")
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Build succeeded'
+            emailext (
+                subject: "✅ ${env.JOB_NAME} #${env.BUILD_NUMBER} SUCCESS",
+                body: """\
+                Build succeeded.
+                Docker image: ${env.IMAGE_NAME}:${env.BUILD_NUMBER}
+                Container running on host port 5000.
+                Build Status: ${currentBuild.currentResult}
+                Project: ${env.JOB_NAME}
+                Build Number: ${env.BUILD_NUMBER}
+                Build URL: ${env.BUILD_URL}""",
+                to: "cjeeva79@yopmail.com"
+            )
+        }
+        failure {
+            echo '❌ Build failed'
+            emailext (
+                subject: "❌ ${env.JOB_NAME} #${env.BUILD_NUMBER} FAILURE",
+                body: """\
+                Build Failed.
+                Kindly check Jenkins console for more details.
+                Build Status: ${currentBuild.currentResult}
+                Project: ${env.JOB_NAME}
+                Build Number: ${env.BUILD_NUMBER}
+                Build URL: ${env.BUILD_URL}""",
+                to: "cjeeva79@yopmail.com"
+            )
+        }
+        always {
+            script {
+                sh "docker rm -f flask_app_${env.BUILD_NUMBER} || true"
+            }
+            cleanWs()
+        }
+    }
+}
