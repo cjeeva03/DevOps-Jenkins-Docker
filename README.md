@@ -52,10 +52,28 @@ source venv/bin/activate
 pip install -r requirements.txt
 python -m app.main 
 ```
-### 3. Build & run with Docker
+### 3. Jenkins Setup
+```bash
+docker compose up -d
+```
+__Jenkins Plugin__
+
+- Pipeline
+- Git
+- Docker Pipeline
+- Email Extension (if you want email)
+- Slack Notification (if you want Slack)
+### 4. Build & run with Docker
 ```bash
 docker build -t flask-ci-cd .
 docker run -p 5000:5000 flask-ci-cd
 ```
 Visit `http://localhost:5000/health` – you should see `{"status":"ok"}`.
+
+
+## Roadmap
+
+### commit history
+    1. initial commit
+    2. Error faced - [python -m venv venv] Jenkinsfile
 
