@@ -75,5 +75,6 @@ Visit `http://localhost:5000/health` – you should see `{"status":"ok"}`.
 
 ### commit history
     1. initial commit
-    2. Error faced - [python -m venv venv] Jenkinsfile
+    2. Error faced - [python -m venv venv] Jenkinsfile - Added seperate python docker
+    3. Removed python docker and modified jenkins image
 

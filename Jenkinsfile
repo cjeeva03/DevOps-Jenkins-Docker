@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11.14-slim'
-            label 'python-build-agent'
-        }
-    }
+    agent any
 
     environment {
         IMAGE_NAME = "flask-ci-cd"
