@@ -75,7 +75,7 @@ pipeline {
         }
         always {
             script {
-                sh "docker rm -f flask_app_${env.BUILD_NUMBER} || true"
+                echo "Completed..."
             }
             cleanWs()
         }
