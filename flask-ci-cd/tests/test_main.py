@@ -1,5 +1,5 @@
 import json
-from app.main import create_app
+from app.app import create_app
 
 def test_health():
     client = create_app().test_client()
