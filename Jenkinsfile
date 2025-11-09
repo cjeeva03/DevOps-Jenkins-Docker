@@ -15,7 +15,13 @@ pipeline {
 
         stage('Install & Test') {
             steps {
-                sh 'python -m venv venv && . venv/bin/activate && pip install -r requirements.txt && pytest -q'
+                sh '''
+                    python -m venv venv
+                    . venv/bin/activate
+                    pip install -r flask-ci-cd/requirements.txt
+                    export PYTHONPATH=$WORKSPACE/flask-ci-cd
+                    pytest -q flask-ci-cd/tests
+                '''
             }
         }
 
